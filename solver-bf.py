@@ -15,10 +15,55 @@ def solve(G, s):
     """
     if G.size(weight='stress') <= s:
         return {t:0 for t in list(G.nodes)}, 1
-    sol_dictionary = {}
+
+
+    # sol_dictionary = {}
+
+    max_happiness = 0.0
+    best_d = {}
     for node in list(G.nodes):
-        sol_dictionary[node] = node
-    return sol_dictionary, len(list(G.nodes))
+        best_d[node] = node
+
+    # Write out every single solution. Check each solution's validity. If valid, compute happiness.
+    n = len(list(G.nodes))
+    for a in range(n):
+        for b in range(n):
+            for c in range(n):
+                for d in range(n):
+                    for e in range(n):
+                        for f in range(n):
+                            for g in range(n):
+                                for h in range(n):
+                                    for i in range(n):
+                                        for j in range(n):
+
+                                            d = {
+                                            0: a,
+                                            1: b,
+                                            2: c,
+                                            3: d,
+                                            4: e,
+                                            5: f,
+                                            6: g,
+                                            7: h,
+                                            8: i,
+                                            9: j
+                                            }
+
+                                            k = len(set(d.values()))
+
+                                            if is_valid_solution(d, G, s, k):
+                                                h = calculate_happiness(d, G)
+                                                if h > max_happiness:
+                                                    max_happiness = h
+                                                    best_d = d
+
+    return best_d, len(set(best_d.values()))
+
+    # # shit solution (always returns 0.0)
+    # for node in list(G.nodes):
+    #     sol_dictionary[node] = node
+    # return sol_dictionary, len(list(G.nodes))
 
 
 # Here's an example of how to run your solver.
