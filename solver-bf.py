@@ -16,9 +16,6 @@ def solve(G, s):
     if G.size(weight='stress') <= s:
         return {t:0 for t in list(G.nodes)}, 1
 
-
-    # sol_dictionary = {}
-
     max_happiness = 0.0
     best_d = {}
     for node in list(G.nodes):
@@ -37,7 +34,7 @@ def solve(G, s):
                                     for i in range(n):
                                         for j in range(n):
 
-                                            d = {
+                                            sol = {
                                             0: a,
                                             1: b,
                                             2: c,
@@ -50,21 +47,16 @@ def solve(G, s):
                                             9: j
                                             }
 
-                                            k = len(set(d.values()))
+                                            k = len(set(sol.values()))
 
-                                            if is_valid_solution(d, G, s, k):
-                                                h = calculate_happiness(d, G)
-                                                if h > max_happiness:
-                                                    max_happiness = h
-                                                    best_d = d
+                                            if is_valid_solution(sol, G, s, k):
+                                                happy = calculate_happiness(sol, G)
+                                                if happy > max_happiness:
+                                                    max_happiness = happy
+                                                    best_d = sol
+                                                    print(max_happiness)
 
     return best_d, len(set(best_d.values()))
-
-    # # shit solution (always returns 0.0)
-    # for node in list(G.nodes):
-    #     sol_dictionary[node] = node
-    # return sol_dictionary, len(list(G.nodes))
-
 
 # Here's an example of how to run your solver.
 
