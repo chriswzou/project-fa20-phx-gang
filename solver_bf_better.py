@@ -2,6 +2,7 @@ import networkx as nx
 from parse import read_input_file, write_output_file
 from utils import is_valid_solution, calculate_happiness
 import sys
+import re
 
 # This function outlines the recurrence relation if you want to place n students in k breakout
 # rooms such that every breakout room has at least 1 student
@@ -72,20 +73,23 @@ def solve(G, s):
 					max_happiness = happy
 					best_sol = sol
 					print(max_happiness)
+
 	return best_sol, len(set(best_sol.values()))
 
 # Here's an example of how to run your solver.
 
-# Usage: python3 solver.py test.in
+# Usage: python3 solver.py test.in location.out
 
 if __name__ == '__main__':
-    assert len(sys.argv) == 2
+    assert len(sys.argv) == 3
     path = sys.argv[1]
+    out = sys.argv[2]
+    print(path, out)
     G, s = read_input_file(path)
     D, k = solve(G, s)
     assert is_valid_solution(D, G, s, k)
     print("Total Happiness: {}".format(calculate_happiness(D, G)))
-    # write_output_file(D, 'out/test.out')
+    write_output_file(D, out)
 
 
 # For testing a folder of inputs to create a folder of outputs, you can use glob (need to import it)
