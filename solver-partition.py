@@ -5,7 +5,8 @@ import sys
 import random
 from collections import defaultdict
 import re
-
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
 # This function outlines the recurrence relation if you want to place n students in k breakout
 # rooms such that every breakout room has at least 1 student
 def sol_breakout(n, k):
@@ -103,10 +104,11 @@ def solve(G, s):
     # We need to retrieve all pairwise combinations between the two lists
     # For each pairwise combination, merge the dictionaries, test the resulting soln,
     # And commit that soln to be the best soln if it's better than the existing one.
+    pprint.pprint(solns[0][:2])
     for i in solns:
         for j in solns[0]:
             for k in solns[1]:
-                soln = merge(solns[0][j], solns[1][k])
+                soln = merge(j, k)
                 n_rooms = len(set(soln.values()))
                 if is_valid_solution(soln, G, s, n_rooms):
                     happy = calculate_happiness(soln, G)
