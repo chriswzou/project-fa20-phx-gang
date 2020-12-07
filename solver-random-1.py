@@ -66,6 +66,12 @@ def solve(G, s):
     list_solutions = []
     n_iterations = 0
     while (len(list_solutions) < 1000 and n_iterations < 10000) or len(list_solutions) == 0:
+        if num_students == 50:
+            if n_iterations > 100000:
+                return {s:s for s in range(num_students)}, num_students
+        if num_students == 20:
+            if n_iterations > 200000:
+                return {s:s for s in range(num_students)}, num_students
         soln, k, room_to_students = generate_solution(num_students)
         if is_valid_solution(soln, G, s, k):
             list_solutions.append([soln, k, room_to_students])
