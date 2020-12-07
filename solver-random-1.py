@@ -12,13 +12,14 @@ import pprint
 #             3. check the solution, if valid --> proceed, if not, repea
 
 pp = pprint.PrettyPrinter(indent=4)
+random.seed(a=11)
 
 def generate_solution(n_students):
     # generate a random number of rooms
     if n_students == 50:
-        n_rooms = random.randint(4, 30)
+        n_rooms = round(random.triangular(8, 20, 14))
     elif n_students == 20:
-        n_rooms = random.randint(4, 15)
+        n_rooms = round(random.triangular(4, 15, 8))
     else:
         n_rooms = random.randint(1, n_students)
 
@@ -65,7 +66,7 @@ def solve(G, s):
     num_students = len(list(G.nodes))
     list_solutions = []
     n_iterations = 0
-    while (len(list_solutions) < 1000 and n_iterations < 10000) or len(list_solutions) == 0:
+    while (len(list_solutions) < 1000 and n_iterations < 100000) or len(list_solutions) == 0:
         if num_students == 50:
             if n_iterations > 100000:
                 return {s:s for s in range(num_students)}, num_students
@@ -75,7 +76,7 @@ def solve(G, s):
         soln, k, room_to_students = generate_solution(num_students)
         if is_valid_solution(soln, G, s, k):
             list_solutions.append([soln, k, room_to_students])
-        n_iterations += 1        
+        n_iterations += 1
     best_solution = max(list_solutions, key=lambda s: calculate_happiness(s[0], G))
     updated_soln, k = update_solution(best_solution[0], best_solution[1], s, G, best_solution[2])
     return updated_soln, k
