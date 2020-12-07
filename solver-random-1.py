@@ -15,7 +15,12 @@ pp = pprint.PrettyPrinter(indent=4)
 
 def generate_solution(n_students):
     # generate a random number of rooms
-    n_rooms = random.randint(1, n_students)
+    if n_students == 50:
+        n_rooms = random.randint(4, 30)
+    elif n_students == 20:
+        n_rooms = random.randint(4, 15)
+    else:
+        n_rooms = random.randint(1, n_students)
 
     # randomly place students into the rooms
     room_to_students = defaultdict(list)
@@ -65,12 +70,8 @@ def solve(G, s):
         if is_valid_solution(soln, G, s, k):
             list_solutions.append([soln, k, room_to_students])
         n_iterations += 1        
-    print(list_solutions)
     best_solution = max(list_solutions, key=lambda s: calculate_happiness(s[0], G))
-
     updated_soln, k = update_solution(best_solution[0], best_solution[1], s, G, best_solution[2])
-    print("Updated solution:")
-    print(updated_soln)
     return updated_soln, k
 
 # Usage: python3 solver.py test.in location.out
