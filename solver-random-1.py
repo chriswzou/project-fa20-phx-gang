@@ -23,7 +23,7 @@ def generate_solution(n_students):
     for student in range(n_students):
         rand_room = random.randint(0, n_rooms - 1)
         room_to_students[rand_room].append(student)
-        
+
     curr_room = 0
     revised_dict = defaultdict(list)
     for key in room_to_students:
@@ -67,6 +67,7 @@ def solve(G, s):
         n_iterations += 1        
     print(list_solutions)
     best_solution = max(list_solutions, key=lambda s: calculate_happiness(s[0], G))
+
     updated_soln, k = update_solution(best_solution[0], best_solution[1], s, G, best_solution[2])
     print("Updated solution:")
     print(updated_soln)
