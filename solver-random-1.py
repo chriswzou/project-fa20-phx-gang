@@ -23,7 +23,7 @@ def generate_solution(n_students):
     for student in range(n_students):
         rand_room = random.randint(0, n_rooms - 1)
         room_to_students[rand_room].append(student)
-        
+
     curr_room = 0
     revised_dict = defaultdict(list)
     for key in room_to_students:
@@ -60,12 +60,22 @@ def solve(G, s):
     num_students = len(list(G.nodes))
     list_solutions = []
     n_iterations = 0
-    while len(list_solutions) < 100 and n_iterations < 1000:
+    while len(list_solutions) < 1000 and n_iterations < 10000:
         soln, k, room_to_students = generate_solution(num_students)
         if is_valid_solution(soln, G, s, k):
             list_solutions.append([soln, k, room_to_students])
         n_iterations += 1
+
+    if len(list_solutions) == 0:
+        n_iterations = 0
+        while len(list_solutions) < 100 and n_iterations < 100000:
+            soln, k, room_to_students = generate_solution(num_students)
+            if is_valid_solution(soln, G, s, k):
+                list_solutions.append([soln, k, room_to_students])
+            n_iterations += 1
+
     best_solution = max(list_solutions, key=lambda s: calculate_happiness(s[0], G))
+
     updated_soln, k = update_solution(best_solution[0], best_solution[1], s, G, best_solution[2])
     print("Updated solution:")
     print(updated_soln)
