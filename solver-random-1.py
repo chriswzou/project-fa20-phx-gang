@@ -12,7 +12,7 @@ import pprint
 #             3. check the solution, if valid --> proceed, if not, repea
 
 pp = pprint.PrettyPrinter(indent=4)
-random.seed(a=11)
+random.seed(a=12)
 
 def generate_solution(n_students):
     # generate a random number of rooms
